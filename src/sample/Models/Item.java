@@ -25,4 +25,9 @@ public class Item {
         date=_date;
         type=_type;
     }
+
+    @Override
+    public String toString(){
+       return "NA";
+    }
 }

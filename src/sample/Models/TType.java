@@ -18,4 +18,14 @@ public class TType {
         name=_name;
     }
 
+    public String GetName(){
+        return name;
+    }
+
+    @Override
+    public String toString(){
+        return name;
+    }
+
+
 }

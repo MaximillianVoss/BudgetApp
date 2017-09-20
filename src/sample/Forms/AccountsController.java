@@ -1,4 +1,4 @@
-package sample.forms;
+package sample.Forms;
 
 /**
  * Created by mark on 17.09.17.
