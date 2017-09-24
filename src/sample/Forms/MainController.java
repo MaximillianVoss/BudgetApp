@@ -25,12 +25,10 @@ public class MainController {
 
     public  void ShowForm(String name) throws IOException{
         FXMLLoader loader  = new FXMLLoader(getClass().getResource("/sample/Forms/"+name));
-        //FXMLLoader loader  = new FXMLLoader(getClass().getResource("Forms/"));
         Parent root = (Parent)loader.load();
         Stage stage = new Stage();
         Scene scene = new Scene(root,500,500);
         stage.setScene(scene);
-        //stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
 

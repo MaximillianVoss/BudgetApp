@@ -19,20 +19,6 @@ public class Main extends Application {
 
     }
 
-//    List<Item> income,outcome;
-//    List<TType> types;
-//    String names []=new String[]{"food","clothes","gaz","car"};
-//    void Init(){
-//        for(int i=0;i<names.length;i++){
-//            types.add(new TType(names[i]));
-//        }
-//        for(int i=0;i<names.length;i++){
-//            income.add(new Item(i,"income"+i,999,new Date("1.1.2017"),types.get(i)));
-//        }
-//
-//    }
-
-
     public static void main(String[] args) {
         launch(args);
     }
