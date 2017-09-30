@@ -14,8 +14,8 @@
     <children>
         <GridPane prefHeight="400.0" prefWidth="600.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="318.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.0" minWidth="10.0" prefWidth="282.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -23,11 +23,11 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button fx:id="btnAdd" mnemonicParsing="false" onMouseClicked="#btnAdd_click" text="Добавить" GridPane.columnIndex="1" />
+                <Button fx:id="btnAdd" mnemonicParsing="false" onMouseClicked="#btnAdd_click" prefHeight="25.0" prefWidth="293.0" text="Добавить" GridPane.columnIndex="1" />
                 <TextField fx:id="txbValue" />
                 <ListView fx:id="lstItems" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
                 <ComboBox fx:id="cmbTypes" onShown="#cmb_OnShow" prefWidth="150.0" promptText="Выберите категорию" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#form_onShow" prefHeight="25.0" prefWidth="316.0" text="Button" GridPane.rowIndex="2" />
+                <Button fx:id="btnDelete" mnemonicParsing="false" onMouseClicked="#btnDelete_click" prefHeight="25.0" prefWidth="316.0" text="Удалить" GridPane.rowIndex="2" />
             </children>
         </GridPane>
         <Label id="lblTitile" text="Доходы" />

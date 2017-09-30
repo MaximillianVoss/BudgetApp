@@ -15,6 +15,11 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
+
+//TODO: доделать функционал для всех форма
+//удаление категорий
+//постройка лиаграмм
+
 public class MainController {
     @FXML private Button btnIncome;
     @FXML private Button btnOutcome;
@@ -23,18 +28,11 @@ public class MainController {
     public void initialize() throws IOException {}
 
 
-    public  void ShowForm(String name) throws IOException{
-        FXMLLoader loader  = new FXMLLoader(getClass().getResource("/sample/Forms/"+name));
-        Parent root = (Parent)loader.load();
-        Stage stage = new Stage();
-        Scene scene = new Scene(root,500,500);
-        stage.setScene(scene);
-        stage.show();
-    }
+    private  Common common = new Common();
 
     public void  btnIncome_click() throws IOException {
         try {
-            ShowForm("IncomeForm.fxml");
+            common.ShowForm("IncomeForm.fxml");
         }
         catch(Exception ex){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -44,7 +42,7 @@ public class MainController {
     }
     public void btnAccounts_click()throws IOException{
         try {
-            ShowForm("AccountsForm.fxml");
+            common.ShowForm("AccountsForm.fxml");
         }
         catch(Exception ex){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -54,7 +52,7 @@ public class MainController {
     }
     public void btnOutCome_click()throws IOException{
         try {
-            ShowForm("OutcomeForm.fxml");
+            common.ShowForm("OutcomeForm.fxml");
         }
         catch(Exception ex){
             Alert alert = new Alert(Alert.AlertType.ERROR);
