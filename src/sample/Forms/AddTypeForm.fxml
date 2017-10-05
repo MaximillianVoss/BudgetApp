@@ -20,7 +20,7 @@
         </rowConstraints>
          <children>
             <Button fx:id="addBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="604.0" text="Добавить" onMouseClicked="#btnAdd_click" GridPane.rowIndex="1" />
-            <TextField fx:id="txbValue"/>
+            <TextField fx:id="txbValue" text=""/>
          </children>
       </GridPane>
    </center>

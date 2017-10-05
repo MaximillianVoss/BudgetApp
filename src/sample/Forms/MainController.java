@@ -17,8 +17,8 @@ import java.io.IOException;
 
 
 //TODO: доделать функционал для всех форма
-//удаление категорий
-//постройка лиаграмм
+//постройка диаграмм!!!
+
 
 public class MainController {
     @FXML private Button btnIncome;

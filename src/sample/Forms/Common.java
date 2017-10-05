@@ -23,7 +23,7 @@ public class Common {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/Forms/" + name));
         Parent root = (Parent) loader.load();
         Stage stage = new Stage();
-        Scene scene = new Scene(root, 500, 500);
+        Scene scene = new Scene(root, 650, 500);
         stage.setScene(scene);
         stage.show();
     }

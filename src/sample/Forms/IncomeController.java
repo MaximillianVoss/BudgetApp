@@ -26,12 +26,15 @@ public class IncomeController implements Initializable {
     private ListView lstItems;
     @FXML
     private ComboBox cmbTypes;
+    @FXML
+    private Button btnTypeDelete;
 
     List<Item> incomes = new ArrayList<Item>();
     List<TType> types = new ArrayList<TType>();
     FileIO fileIOItems = new FileIO("chache.txt");
     FileIO fileIOTypes = new FileIO("types.txt");
     Common common = new Common();
+
     private List<TType> CreateTypes() {
         List<TType> types = new ArrayList<TType>();
         String names[] = {"Зарплата", "Бизнес", "Дивиденды", "Подарки", "Подработка"};
@@ -76,9 +79,24 @@ public class IncomeController implements Initializable {
         }
     }
 
-
     private void AddType() {
 
+    }
+
+    private void DeleteType() {
+        TType type = (TType) cmbTypes.getValue();
+        //for(int i=0;i<types.size();i++)
+        //{
+        //    if(types.get(i).GetId()==type.GetId())
+
+        //}
+        try {
+            types.remove(type);
+            fileIOTypes.SaveTypes(types);
+            cmbTypes.setValue(null);
+        } catch (Exception ex) {
+            common.ShowMessage(ex.getMessage());
+        }
     }
 
     private void LoadTypes() {
@@ -103,6 +121,14 @@ public class IncomeController implements Initializable {
         DeleteValue();
     }
 
+    public void btnTypeDelete_click() {
+        DeleteType();
+    }
+
+    public  void btnDiagrams_click()throws Exception{
+            common.ShowForm("ChartsForm.fxml");
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoadItems();
@@ -110,9 +136,9 @@ public class IncomeController implements Initializable {
         cmbTypes.valueProperty().addListener(new ChangeListener<TType>() {
             @Override
             public void changed(ObservableValue ov, TType t, TType t1) {
-                TType  type= (TType)cmbTypes.getValue();
-                 if(type.GetId()==types.size()) {
-                   //common.ShowMessage(type.toString());
+                TType type = (TType) cmbTypes.getValue();
+                if (type.GetId() == types.size()) {
+                    //common.ShowMessage(type.toString());
                     try {
                         common.ShowForm("AddTypeForm.fxml");
                     } catch (IOException e) {
