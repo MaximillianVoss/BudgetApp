@@ -19,6 +19,7 @@ import java.util.List;
  * Created by Александр on 30.09.2017.
  */
 public class Common {
+
     public void ShowForm(String name) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/Forms/" + name));
         Parent root = (Parent) loader.load();
@@ -27,12 +28,22 @@ public class Common {
         stage.setScene(scene);
         stage.show();
     }
+    public void ShowAddTypeForm(String name,int typeId) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/Forms/" + name));
+        Parent root = (Parent) loader.load();
+        Stage stage = new Stage();
+        Scene scene = new Scene(root, 650, 500);
+        AddTypeController controller = loader.<AddTypeController>getController();
+        controller.setType(typeId);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     public void FillCmb(ComboBox cmb, List<TType> items) {
         ObservableList<TType> obsItems = FXCollections.observableArrayList();
         for (TType item : items)
             obsItems.add(item);
-        obsItems.add(new TType(items.size(),"Добавить категорию"));
+        obsItems.add(new TType(items.size(), "Добавить категорию"));
         cmb.setItems(obsItems);
     }
 

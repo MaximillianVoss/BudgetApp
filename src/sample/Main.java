@@ -6,11 +6,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.FileIO.FileIO;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        FileIO files = new FileIO("chache.txt");
+        files.Init();
         Parent root = FXMLLoader.load(getClass().getResource("Forms/MainForm.fxml"));
         primaryStage.setTitle("BudgetApp");
         primaryStage.setScene(new Scene(root, 600, 400));

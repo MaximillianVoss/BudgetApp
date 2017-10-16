@@ -17,20 +17,54 @@ public class AddTypeController {
     Button addBtn;
     @FXML
     private javafx.scene.control.TextField txbValue;
+    //-1 - none; 1-income ; 2-outcome
+    private int type = -1;
+
+    public void setType(int _type) {
+        this.type = _type;
+    }
+
+    FileIO fileIO = new FileIO("chache.txt");
     Common common = new Common();
-    FileIO fileIOTypes = new FileIO("types.txt");
+
+    private void AddOutcomeType() throws Exception {
+
+        if (fileIO.outomeTypes.size() == 0)
+            fileIO.outomeTypes.add(new TType(txbValue.getText()));
+        else
+            fileIO.outomeTypes.add(new TType(fileIO.outomeTypes.get(fileIO.outomeTypes.size() - 1).GetId() + 1, txbValue.getText()));
+        fileIO.SaveAll();
+        Stage stage = (Stage) addBtn.getScene().getWindow();
+        stage.close();
+
+    }
+
+    private void AddIncomeTypes() throws Exception {
+
+        if (fileIO.incomeTypes.size() == 0)
+            fileIO.incomeTypes.add(new TType(txbValue.getText()));
+        else
+            fileIO.incomeTypes.add(new TType(fileIO.incomeTypes.get(fileIO.incomeTypes.size() - 1).GetId() + 1, txbValue.getText()));
+        fileIO.SaveAll();
+        Stage stage = (Stage) addBtn.getScene().getWindow();
+        stage.close();
+
+    }
 
     public void btnAdd_click() throws Exception {
         try {
-            List<TType> types = fileIOTypes.OpenTypes();
             if (txbValue.getText().length() > 0) {
-                if (types.size() == 0)
-                    types.add(new TType(txbValue.getText()));
-                else
-                    types.add(new TType(types.get(types.size() - 1).GetId() + 1, txbValue.getText()));
-                fileIOTypes.SaveTypes(types);
-                Stage stage = (Stage) addBtn.getScene().getWindow();
-                stage.close();
+                switch (type){
+                    case 1:
+                        AddIncomeTypes();
+                        break;
+                    case 2:
+                        AddOutcomeType();
+                        break;
+                    default:
+                        break;
+                }
+
             } else {
                 throw new Exception("Название не может быть пустой строкой!");
             }

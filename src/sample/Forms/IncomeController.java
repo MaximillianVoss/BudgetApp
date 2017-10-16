@@ -16,10 +16,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
+//TODO доделать еласс FilIO для хранения всей информации
+
 /**
  * Created by mark on 17.09.17.
  */
 public class IncomeController implements Initializable {
+    //<editor-fold desc="Элементы управления">
     @FXML
     private TextField txbValue;
     @FXML
@@ -28,32 +32,33 @@ public class IncomeController implements Initializable {
     private ComboBox cmbTypes;
     @FXML
     private Button btnTypeDelete;
+    //</editor-fold>
 
-    List<Item> incomes = new ArrayList<Item>();
-    List<TType> types = new ArrayList<TType>();
-    FileIO fileIOItems = new FileIO("chache.txt");
-    FileIO fileIOTypes = new FileIO("types.txt");
-    Common common = new Common();
+    //<editor-fold desc="Поля">
+    private FileIO fileIO = new FileIO("chache.txt");
+    private Common common = new Common();
+    //</editor-fold>
 
-    private List<TType> CreateTypes() {
-        List<TType> types = new ArrayList<TType>();
-        String names[] = {"Зарплата", "Бизнес", "Дивиденды", "Подарки", "Подработка"};
-        for (int i = 0; i < names.length; i++)
-            types.add(new TType(i, names[i]));
-        types.add(new TType(names.length + 1, "Добавить категорию"));
-        return types;
+    //<editor-fold desc="Методы">
+    public void Load() {
+        try {
+            fileIO.Init();
+            LoadItems();
+        } catch (Exception ex) {
+            common.ShowMessage(ex.getMessage());
+        }
     }
 
     private void AddValue() {
         try {
             double val = Double.parseDouble(txbValue.getText());
             TType type = (TType) cmbTypes.getValue();
-            if (type == null)
+            if (type == null || type.GetId() == fileIO.incomeTypes.size())
                 throw new Exception("Выберите категорию");
             Date date = new Date();
-            incomes.add(new Item(incomes.size() + 1, val, date, type));
-            common.FillLst(lstItems, incomes);
-            fileIOItems.Save(incomes);
+            fileIO.incomes.add(new Item(fileIO.incomes.size() + 1, val, date, type));
+            LoadItems();
+            fileIO.SaveAll();
         } catch (Exception ex) {
             common.ShowMessage(ex.getMessage());
         }
@@ -62,9 +67,9 @@ public class IncomeController implements Initializable {
     private void DeleteValue() {
         try {
             Item item = (Item) lstItems.getSelectionModel().getSelectedItem();
-            incomes.remove(item);
-            common.FillLst(lstItems, incomes);
-            fileIOItems.Save(incomes);
+            fileIO.incomes.remove(item);
+            common.FillLst(lstItems, fileIO.incomes);
+            fileIO.SaveAll();
         } catch (Exception ex) {
             common.ShowMessage(ex.getMessage());
         }
@@ -72,27 +77,17 @@ public class IncomeController implements Initializable {
 
     private void LoadItems() {
         try {
-            incomes = fileIOItems.Open();
-            common.FillLst(lstItems, incomes);
+            common.FillLst(lstItems, fileIO.incomes);
         } catch (Exception ex) {
             common.ShowMessage(ex.getMessage());
         }
     }
 
-    private void AddType() {
-
-    }
-
     private void DeleteType() {
         TType type = (TType) cmbTypes.getValue();
-        //for(int i=0;i<types.size();i++)
-        //{
-        //    if(types.get(i).GetId()==type.GetId())
-
-        //}
         try {
-            types.remove(type);
-            fileIOTypes.SaveTypes(types);
+            fileIO.incomeTypes.remove(type);
+            fileIO.SaveAll();
             cmbTypes.setValue(null);
         } catch (Exception ex) {
             common.ShowMessage(ex.getMessage());
@@ -101,16 +96,17 @@ public class IncomeController implements Initializable {
 
     private void LoadTypes() {
         try {
-            types = fileIOTypes.OpenTypes();
-            common.FillCmb(cmbTypes, types);
+            //fileIO.OpenTypes();
+            common.FillCmb(cmbTypes, fileIO.types.get("incomeTypes"));
         } catch (Exception ex) {
             common.ShowMessage(ex.getMessage());
         }
     }
+    //</editor-fold>
 
+    //<editor-fold desc="События">
     public void cmb_OnShow() throws Exception {
-        types = fileIOTypes.OpenTypes();
-        common.FillCmb(cmbTypes, types);
+        LoadTypes();
     }
 
     public void btnAdd_click() {
@@ -125,22 +121,21 @@ public class IncomeController implements Initializable {
         DeleteType();
     }
 
-    public  void btnDiagrams_click()throws Exception{
-            common.ShowForm("ChartsForm.fxml");
+    public void btnDiagrams_click() throws Exception {
+        common.ShowForm("ChartsForm.fxml");
     }
 
+    //</editor-fold>
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoadItems();
-        LoadTypes();
+        Load();
         cmbTypes.valueProperty().addListener(new ChangeListener<TType>() {
             @Override
             public void changed(ObservableValue ov, TType t, TType t1) {
                 TType type = (TType) cmbTypes.getValue();
-                if (type.GetId() == types.size()) {
-                    //common.ShowMessage(type.toString());
+                if (type != null && type.GetId() == fileIO.incomeTypes.size()) {
                     try {
-                        common.ShowForm("AddTypeForm.fxml");
+                        common.ShowAddTypeForm("AddTypeForm.fxml", 1);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
