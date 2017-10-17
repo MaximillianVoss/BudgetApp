@@ -64,7 +64,7 @@ public class Item {
 
     public String toStr() {
         String valueStr = String.format("%.2f", value).replace(',', '.');
-        return String.format("%d;%s;%s;%s ;%s \n", id, name, valueStr, ConvertDate(date), type);
+        return String.format("%d;%s;%s;%s;%s\n", id, name, valueStr, ConvertDate(date), type);
     }
 
     @Override

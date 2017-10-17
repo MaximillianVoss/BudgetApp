@@ -12,7 +12,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FileIO files = new FileIO("chache.txt");
+        FileIO files = new FileIO("cache.txt");
         files.Init();
         Parent root = FXMLLoader.load(getClass().getResource("Forms/MainForm.fxml"));
         primaryStage.setTitle("BudgetApp");

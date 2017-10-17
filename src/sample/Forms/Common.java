@@ -20,6 +20,12 @@ import java.util.List;
  */
 public class Common {
 
+    private String fileName = "cache.txt";
+
+    public  String GetFileName(){
+        return fileName;
+    }
+
     public void ShowForm(String name) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/Forms/" + name));
         Parent root = (Parent) loader.load();

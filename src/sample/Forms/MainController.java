@@ -15,16 +15,11 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-
-//TODO: доделать функционал для всех форма
-//постройка диаграмм!!!
-
-
 public class MainController {
     @FXML private Button btnIncome;
     @FXML private Button btnOutcome;
     @FXML private Button btnAccounts;
-
+    @FXML private Button btnSettings;
     public void initialize() throws IOException {}
 
 
@@ -35,9 +30,7 @@ public class MainController {
             common.ShowForm("IncomeForm.fxml");
         }
         catch(Exception ex){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(ex.getMessage());
-            alert.showAndWait();
+            common.ShowMessage(ex.getMessage());
         }
     }
     public void btnAccounts_click()throws IOException{
@@ -45,9 +38,7 @@ public class MainController {
             common.ShowForm("AccountsForm.fxml");
         }
         catch(Exception ex){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(ex.getMessage());
-            alert.showAndWait();
+            common.ShowMessage(ex.getMessage());
         }
     }
     public void btnOutCome_click()throws IOException{
@@ -55,10 +46,16 @@ public class MainController {
             common.ShowForm("OutcomeForm.fxml");
         }
         catch(Exception ex){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(ex.getMessage());
-            alert.showAndWait();
+            common.ShowMessage(ex.getMessage());
         }
     }
 
+    public void btnSettings_click(){
+        try {
+            common.ShowForm("Settings.fxml");
+        }
+        catch(Exception ex){
+            common.ShowMessage(ex.getMessage());
+        }
+    }
 }

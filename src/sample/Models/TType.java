@@ -7,6 +7,7 @@ public class TType {
 
     int id;
     String name;
+    boolean standart;
 
     public TType() {
 
@@ -46,7 +47,7 @@ public class TType {
     }
 
     public String toStr() {
-        return String.format("%d; %s \n", this.id, this.name);
+        return String.format("%d;%s\n", this.id, this.name);
     }
 
 

@@ -96,7 +96,7 @@ public class IncomeController implements Initializable {
 
     private void LoadTypes() {
         try {
-            //fileIO.OpenTypes();
+            fileIO.OpenTypes();
             common.FillCmb(cmbTypes, fileIO.types.get("incomeTypes"));
         } catch (Exception ex) {
             common.ShowMessage(ex.getMessage());

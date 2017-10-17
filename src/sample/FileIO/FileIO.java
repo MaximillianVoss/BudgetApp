@@ -4,11 +4,8 @@ import sample.Models.Item;
 import sample.Models.TType;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Александр on 24.09.2017.
@@ -16,26 +13,9 @@ import java.util.Map;
 public class FileIO {
 
 
-//    private List<TType> CreateTypes() {
-//        List<TType> types = new ArrayList<TType>();
-//        String names[] = {"Зарплата", "Бизнес", "Дивиденды", "Подарки", "Подработка"};
-//        for (int i = 0; i < names.length; i++)
-//            types.add(new TType(i, names[i]));
-//        types.add(new TType(names.length + 1, "Добавить категорию"));
-//        return types;
-//    }
-
-//    private List<TType> CreateTypes() {
-//        List<TType> types = new ArrayList<TType>();
-//        String names[] = {"Зарплата", "Бизнес", "Дивиденды", "Подарки", "Подработка"};
-//        for (int i = 0; i < names.length; i++)
-//            types.add(new TType(i, names[i]));
-//        types.add(new TType(names.length + 1, "Добавить категорию"));
-//        return types;
-//    }
-
     //<editor-fold desc="Поля">
     private String fileName;
+    private Boolean byDefault;
     public ArrayList<TType> incomeTypes, outomeTypes;
     public ArrayList<Item> incomes, outcomes;
     public HashMap<String, ArrayList<TType>> types;
@@ -109,6 +89,13 @@ public class FileIO {
             if (line.contains("=")) {
                 name = line.replace("=", "");
             } else {
+                if (name.equals("firstime")) {
+                    if (Boolean.parseBoolean(line) == true) {
+                        byDefault = false;
+                        CreateTypes();
+                        SaveAll();
+                    }
+                }
                 if (items.get(name) != null) {
                     //"%d;%s;%f;%s;%s \n",id,name,value,date,type
                     String values[] = line.split(";");
@@ -126,6 +113,15 @@ public class FileIO {
         bufferReader.close();
     }
 
+    private void CreateTypes() {
+        String inComeNames[] = {"Зарплата", "Бизнес", "Дивиденды", "Подарки", "Подработка"};
+        String outComeNames[] = {"Продукты", "Обеды", "Одежда", "Спорт", "Бензин", "Авто", "Дом", "Досуг", "Связь", "Здоровье"};
+        for (int i = 0; i < inComeNames.length; i++)
+            incomeTypes.add(new TType(i, inComeNames[i]));
+        for (int i = 0; i < outComeNames.length; i++)
+            outomeTypes.add(new TType(i, outComeNames[i]));
+    }
+
     public void OpenTypes() throws Exception {
         OpenTypes(this.fileName);
     }
@@ -135,6 +131,12 @@ public class FileIO {
         BufferedReader bufferReader = new BufferedReader(reader);
         String line = "";
         String name = "";
+        incomeTypes = new ArrayList<>();
+        outomeTypes = new ArrayList<>();
+        types = new HashMap<String, ArrayList<TType>>() {{
+            put("incomeTypes", incomeTypes);
+            put("outcomeTypes", outomeTypes);
+        }};
         while ((line = bufferReader.readLine()) != null) {
             //=== разделители отделы
             if (line.contains("=")) {
@@ -184,6 +186,7 @@ public class FileIO {
     public void SaveAll(String _fileName) throws Exception {
         File f = new File(_fileName);
         ArrayList<String> names = new ArrayList<String>() {{
+            add("===firstime");
             add("===incomes");
             add("===outcomes");
             add("===incomeTypes");
@@ -194,6 +197,12 @@ public class FileIO {
             bufferWriter.write(name);
             bufferWriter.newLine();
             String currName = name.replace("=", "");
+            if (currName.equals("firstime")) {
+                if (this.byDefault == null)
+                    bufferWriter.write(String.valueOf(false) + "\n");
+                else
+                    bufferWriter.write(String.valueOf(this.byDefault) + "\n");
+            }
             if (items.get(currName) != null) {
                 for (Item item : items.get(currName))
                     bufferWriter.write(item.toStr());
@@ -204,6 +213,10 @@ public class FileIO {
             }
         }
         bufferWriter.close();
+    }
+
+    public  void DoDefault(){
+        this.byDefault =true;
     }
 
     //</editor-fold>
