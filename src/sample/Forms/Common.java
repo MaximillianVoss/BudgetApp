@@ -13,6 +13,7 @@ import sample.Models.Item;
 import sample.Models.TType;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,6 +42,17 @@ public class Common {
         Scene scene = new Scene(root, 650, 500);
         AddTypeController controller = loader.<AddTypeController>getController();
         controller.setType(typeId);
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void ShowChartForm(String name,ArrayList<Item> items,int type) throws IOException, InterruptedException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/Forms/" + name));
+        Parent root = (Parent) loader.load();
+        Stage stage = new Stage();
+        Scene scene = new Scene(root, 650, 500);
+        ChartsController controller = loader.<ChartsController>getController();
+        controller.SetItems(items);
+        controller.SetType(type);
         stage.setScene(scene);
         stage.show();
     }

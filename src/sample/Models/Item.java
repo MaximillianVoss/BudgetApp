@@ -13,9 +13,9 @@ import java.util.DoubleSummaryStatistics;
 public class Item {
     int id;
     String name;
-    double value;
-    Date date;
-    TType type;
+    public double value;
+    public Date date;
+    public TType type;
 
     public Item() {
 

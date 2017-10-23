@@ -122,7 +122,7 @@ public class IncomeController implements Initializable {
     }
 
     public void btnDiagrams_click() throws Exception {
-        common.ShowForm("ChartsForm.fxml");
+        common.ShowChartForm("ChartsForm.fxml", fileIO.incomes,1);
     }
 
     //</editor-fold>

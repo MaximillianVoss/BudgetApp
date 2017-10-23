@@ -39,10 +39,10 @@ public class OutcomeController implements Initializable {
 
     //<editor-fold desc="Методы">
     public void Load() {
-        try{
+        try {
             fileIO.Init();
             LoadItems();
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             common.ShowMessage(ex.getMessage());
         }
     }
@@ -119,8 +119,8 @@ public class OutcomeController implements Initializable {
         DeleteType();
     }
 
-    public  void btnDiagrams_click()throws Exception{
-        common.ShowForm("ChartsForm.fxml");
+    public void btnDiagrams_click() throws Exception {
+        common.ShowChartForm("ChartsForm.fxml", fileIO.outcomes,2);
     }
     //</editor-fold>
 
@@ -131,9 +131,9 @@ public class OutcomeController implements Initializable {
             @Override
             public void changed(ObservableValue ov, TType t, TType t1) {
                 TType type = (TType) cmbTypes.getValue();
-                if (type.GetId() == fileIO.outomeTypes.size()) {
+                if (type != null && type.GetId() == fileIO.outomeTypes.size()) {
                     try {
-                        common.ShowAddTypeForm("AddTypeForm.fxml",2);
+                        common.ShowAddTypeForm("AddTypeForm.fxml", 2);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
