@@ -24,7 +24,7 @@ public class AddTypeController {
         this.type = _type;
     }
 
-    FileIO fileIO = new FileIO("chache.txt");
+    FileIO fileIO = new FileIO("cache.txt");
     Common common = new Common();
 
     private void AddOutcomeType() throws Exception {

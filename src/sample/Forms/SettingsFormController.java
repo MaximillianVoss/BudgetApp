@@ -17,7 +17,7 @@ public class SettingsFormController {
     public void btnDoDefault_click(){
         Common common = new Common();
         try {
-            FileIO io = new FileIO("chache.txt");
+            FileIO io = new FileIO("cache.txt");
             io.DoDefault();
             io.SaveAll();
         } catch(Exception ex){

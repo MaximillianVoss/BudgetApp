@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 import sample.FileIO.FileIO;
 
 public class Main extends Application {
-
+    //TODO:изменение даты и графики
+    //счета
     @Override
     public void start(Stage primaryStage) throws Exception{
         FileIO files = new FileIO("cache.txt");

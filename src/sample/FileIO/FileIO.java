@@ -16,6 +16,8 @@ public class FileIO {
     //<editor-fold desc="Поля">
     private String fileName;
     private Boolean byDefault;
+    //переменная для передачи данных между формами
+    private String temp;
     public ArrayList<TType> incomeTypes, outomeTypes;
     public ArrayList<Item> incomes, outcomes;
     public HashMap<String, ArrayList<TType>> types;
@@ -84,11 +86,15 @@ public class FileIO {
         BufferedReader bufferReader = new BufferedReader(reader);
         String line = "";
         String name = "";
+
         while ((line = bufferReader.readLine()) != null) {
             //=== разделители отделы
             if (line.contains("=")) {
                 name = line.replace("=", "");
             } else {
+                if (name.equals("temp")) {
+                    this.temp = line;
+                }
                 if (name.equals("firstime")) {
                     if (Boolean.parseBoolean(line) == true) {
                         byDefault = false;
@@ -186,6 +192,7 @@ public class FileIO {
     public void SaveAll(String _fileName) throws Exception {
         File f = new File(_fileName);
         ArrayList<String> names = new ArrayList<String>() {{
+            add("===temp");
             add("===firstime");
             add("===incomes");
             add("===outcomes");
@@ -197,6 +204,12 @@ public class FileIO {
             bufferWriter.write(name);
             bufferWriter.newLine();
             String currName = name.replace("=", "");
+            if (currName.equals("temp")) {
+                if (this.temp == null)
+                    bufferWriter.write("" + "\n");
+                else
+                    bufferWriter.write(this.temp + "\n");
+            }
             if (currName.equals("firstime")) {
                 if (this.byDefault == null)
                     bufferWriter.write(String.valueOf(false) + "\n");
@@ -215,9 +228,18 @@ public class FileIO {
         bufferWriter.close();
     }
 
-    public  void DoDefault(){
-        this.byDefault =true;
+    public void DoDefault() {
+        this.byDefault = true;
     }
+
+    public void SetTemp(String value) {
+        this.temp = value;
+    }
+
+    public String GetTemp() {
+        return this.temp;
+    }
+
 
     //</editor-fold>
     //<editor-fold desc="Старые методы">

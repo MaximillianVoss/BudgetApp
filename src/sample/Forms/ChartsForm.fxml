@@ -2,7 +2,6 @@
 
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -26,10 +25,9 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ComboBox layoutX="118.0" layoutY="54.0" prefWidth="150.0" />
-                        <ComboBox layoutX="328.0" layoutY="54.0" prefWidth="150.0" />
-                        <ChoiceBox fx:id="chbDay" layoutX="118.0" layoutY="100.0" prefWidth="150.0" />
-                        <ChoiceBox fx:id="chbYear" layoutX="328.0" layoutY="100.0" prefWidth="150.0" />
+                        <ChoiceBox fx:id="chbMonth" layoutX="78.0" layoutY="43.0" onMouseClicked="#chbMonth_clicked" prefWidth="150.0" />
+                        <ChoiceBox fx:id="chbYear" layoutX="311.0" layoutY="43.0" onMouseClicked="#chbYear_clicked" prefWidth="150.0" />
+                        <PieChart fx:id="chartMonth" layoutX="78.0" layoutY="85.0" prefHeight="272.0" prefWidth="383.0" />
                      </children></AnchorPane>
                     </content>
                 </Tab>
@@ -37,7 +35,8 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ComboBox layoutX="225.0" layoutY="34.0" prefWidth="150.0" />
+                        <ChoiceBox fx:id="chbYear2" layoutX="225.0" layoutY="14.0" onMouseClicked="#chbYear2_clicked" prefWidth="150.0" />
+                        <PieChart fx:id="chartYear" layoutX="107.0" layoutY="42.0" prefHeight="315.0" prefWidth="386.0" />
                      </children></AnchorPane>
                     </content>
                 </Tab>

@@ -35,7 +35,7 @@ public class IncomeController implements Initializable {
     //</editor-fold>
 
     //<editor-fold desc="Поля">
-    private FileIO fileIO = new FileIO("chache.txt");
+    private FileIO fileIO = new FileIO("cache.txt");
     private Common common = new Common();
     //</editor-fold>
 
@@ -122,7 +122,10 @@ public class IncomeController implements Initializable {
     }
 
     public void btnDiagrams_click() throws Exception {
-        common.ShowChartForm("ChartsForm.fxml", fileIO.incomes,1);
+        fileIO.SetTemp("income");
+        fileIO.SaveAll();
+        common.ShowForm("ChartsForm.fxml");
+        //common.ShowChartForm("ChartsForm.fxml", fileIO.incomes,1);
     }
 
     //</editor-fold>

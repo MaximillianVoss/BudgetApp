@@ -33,7 +33,7 @@ public class OutcomeController implements Initializable {
     //</editor-fold>
 
     //<editor-fold desc="Поля">
-    private FileIO fileIO = new FileIO("chache.txt");
+    private FileIO fileIO = new FileIO("cache.txt");
     private Common common = new Common();
     //</editor-fold>
 
@@ -94,7 +94,7 @@ public class OutcomeController implements Initializable {
 
     private void LoadTypes() {
         try {
-            //fileIO.OpenTypes();
+            fileIO.OpenTypes();
             common.FillCmb(cmbTypes, fileIO.types.get("outcomeTypes"));
         } catch (Exception ex) {
             common.ShowMessage(ex.getMessage());
@@ -120,7 +120,10 @@ public class OutcomeController implements Initializable {
     }
 
     public void btnDiagrams_click() throws Exception {
-        common.ShowChartForm("ChartsForm.fxml", fileIO.outcomes,2);
+        fileIO.SetTemp("outcome");
+        fileIO.SaveAll();
+        common.ShowForm("ChartsForm.fxml");
+       //common.ShowChartForm("ChartsForm.fxml", fileIO.outcomes,2);
     }
     //</editor-fold>
 
