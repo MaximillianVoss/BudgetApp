@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import sample.FileIO.FileIO;
 
 /**
- * Created by Александр on 17.10.2017.
+ * Created by mark on 17.10.2017.
  */
 public class SettingsFormController {
     @FXML

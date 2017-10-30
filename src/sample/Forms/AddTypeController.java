@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Александр on 30.09.2017.
+ * Created by mark on 30.09.2017.
  */
 public class AddTypeController {
     @FXML
