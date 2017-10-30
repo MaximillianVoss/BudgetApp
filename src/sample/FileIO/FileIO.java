@@ -168,6 +168,16 @@ public class FileIO {
         BufferedReader bufferReader = new BufferedReader(reader);
         String line = "";
         String name = "";
+        incomeTypes = new ArrayList<>();
+        outomeTypes = new ArrayList<>();
+        types = new HashMap<String, ArrayList<TType>>() {{
+            put("incomeTypes", incomeTypes);
+            put("outcomeTypes", outomeTypes);
+        }};
+        items = new HashMap<String, ArrayList<Item>>() {{
+            put("incomes", incomes);
+            put("outcomes", outcomes);
+        }};
         while ((line = bufferReader.readLine()) != null) {
             //=== разделители отделы
             if (line.contains("=")) {
