@@ -34,6 +34,7 @@ import java.util.concurrent.Callable;
  * Created by mark on 05.10.2017.
  */
 public class ChartsController implements Initializable {
+    //<editor-fold desc="Controls">
     @FXML
     AnchorPane pane;
     @FXML
@@ -56,9 +57,7 @@ public class ChartsController implements Initializable {
     BarChart bchartMonth;
     @FXML
     BarChart bchartYear;
-
-    //TODO: ПРОВЕРИТЬ ЗАПОЛНЕНИЕ items и поправить FILEIO!!!!!
-
+    //</editor-fold>
 
     List<String> colors = new ArrayList<>();
 
@@ -176,7 +175,10 @@ public class ChartsController implements Initializable {
             }
         }
         pieChart.setData(ConvertToChartData(dict));
-
+        //TODO: сделать подписи в зависимости от формы!!!
+//        bchartDay.setTitle("Доходы");
+//        xAxis.setLabel("Значение");
+//        yAxis.setLabel("категории");
         for (i = 0; i < pieChart.getData().size(); i++)
             pieChart.getData().get(i).getNode().setStyle("-fx-pie-color:" + styles[i] + ";");
         barChart.setBarGap(0);
@@ -186,7 +188,7 @@ public class ChartsController implements Initializable {
             XYChart.Series series = new XYChart.Series();
             XYChart.Data<String, Number> data = new XYChart.Data(dict.get(key).type.GetName(), dict.get(key).value);
             series.getData().add(data);
-            bchartDay.getData().add(series);
+            barChart.getData().add(series);
             data.getNode().setStyle("-fx-bar-fill:" + styles[i++] + ";");
         }
     }
