@@ -8,6 +8,7 @@ import sample.FileIO.FileIO;
 import sample.Models.Item;
 import sample.Models.TType;
 import javafx.scene.control.*;
+
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -20,6 +21,8 @@ public class AccountsController implements Initializable {
     //<editor-fold desc="Controls">
     @FXML
     Button btnAdd;
+    @FXML
+    Button btnDelete;
     @FXML
     Button btnSubVal;
     @FXML
@@ -52,16 +55,44 @@ public class AccountsController implements Initializable {
         }
     }
 
-    public void FillList(){
+    public void FillList() {
         Open();
-        common.FillLst(lstAcc,io.accounts);
+        common.FillLst(lstAcc, io.accounts);
     }
-    //</editor-fold>
 
+    public void Add() {
+        if (txbName.getText().length() > 0 && txbValue.getText().length() > 0) {
+            double val = Double.parseDouble(txbValue.getText());
+            io.accounts.add(new Item(io.accounts.size() + 1, txbName.getText(), val, new Date(), new TType(common.bankAccountTypeId, common.bankAccountTypeStr)));
+            try {
+                io.SaveAll();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            FillList();
+        } else
+            common.ShowMessage(common.notFilledStr);
+    }
 
-    public void btnAdd_click() {
-        double val = Double.parseDouble(txbValue.getText());
-        io.accounts.add(new Item(io.accounts.size() + 1, val, new Date(),new TType(1, "Банковский счет")));
+    public void Delete() {
+        Item item = (Item) lstAcc.getSelectionModel().getSelectedItem();
+        if (item != null) {
+            io.accounts.remove(item);
+            try {
+                io.SaveAll();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            FillList();
+        }
+    }
+
+    public void AddValue() {
+        Item item = (Item) lstAcc.getSelectionModel().getSelectedItem();
+        if (item != null) {
+            double val = Double.parseDouble(txbIncome.getText());
+            item.value += val;
+        }
         try {
             io.SaveAll();
         } catch (Exception e) {
@@ -69,6 +100,39 @@ public class AccountsController implements Initializable {
         }
         FillList();
     }
+
+    public void SubValue() {
+        Item item = (Item) lstAcc.getSelectionModel().getSelectedItem();
+        if (item != null) {
+            double val = Double.parseDouble(txbOutcome.getText());
+            item.value -= val;
+        }
+        try {
+            io.SaveAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FillList();
+    }
+    //</editor-fold>
+
+
+    public void btnAdd_click() {
+        Add();
+    }
+
+    public void btnSubVal_click() {
+        SubValue();
+    }
+
+    public void btnAddVal_click() {
+        AddValue();
+    }
+
+    public void btnDelete_click() {
+        Delete();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         FillList();

@@ -1,5 +1,7 @@
 package sample.Models;
 
+import sample.Forms.Common;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.DoubleSummaryStatistics;
@@ -28,12 +30,12 @@ public class Item {
      */
     public Item(String values[]) {
         try {
-            //"%d|%s|%f|%s|%s \n",id,name,value,date,type
+            //"%d|%s|%f|%s|%i|%s \n",id,name,value,date,type
             id = Integer.parseInt(values[0]);
             name = values[1];
             value = Double.parseDouble(values[2]);
             date = ConvertDate(values[3]);
-            type = new TType(values[4]);
+            type = new TType(values[4], values[5]);
         } catch (Exception ex) {
             new Item();
         }
@@ -67,12 +69,16 @@ public class Item {
 
     public String toStr() {
         String valueStr = String.format("%.2f", value).replace(',', '.');
-        return String.format("%d;%s;%s;%s;%s\n", id, name, valueStr, ConvertDate(date), type);
+        return String.format("%d;%s;%s;%s;%d;%s\n", id, name, valueStr, ConvertDate(date), type.GetId(), type.GetName());
     }
 
     @Override
     public String toString() {
         String valueStr = String.format("%.2f", value).replace(',', '.');
-        return String.format("сумма:%s дата:%s категория:%s", valueStr, ConvertDate(date), type);
+        Common common = new Common();
+        if (this.type.GetId() != common.bankAccountTypeId)
+            return String.format("сумма:%s дата:%s категория: %s", valueStr, ConvertDate(date), type);
+        else
+            return String.format("название:%s  баланс: %s", this.name, valueStr);
     }
 }

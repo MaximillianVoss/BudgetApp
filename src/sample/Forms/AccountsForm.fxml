@@ -29,18 +29,18 @@
                 <Label alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" text="Счета" />
             <TextField fx:id="txbName" focusTraversable="false" promptText="Введите название счета" GridPane.rowIndex="1" />
             <TextField fx:id="txbValue" focusTraversable="false" promptText="Введите баланс счета" GridPane.rowIndex="2" />
-            <Button fx:id="btnAdd" mnemonicParsing="false" onMouseClicked="#btnAdd_click" prefHeight="27.0" prefWidth="296.0" text="Добавить счет" GridPane.rowIndex="4" />
+            <Button fx:id="btnAdd" mnemonicParsing="false" onMouseClicked="#btnAdd_click" prefHeight="27.0" prefWidth="296.0" text="Добавить счет" GridPane.rowIndex="3" />
             <TextField fx:id="txbIncome" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="27.0" prefWidth="176.0" promptText="Введите сумму дохода" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                 <Insets top="-230.0" />
             </GridPane.margin>
             </TextField>
-            <Button fx:id="btnAddVal" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="116.0" text="Прибавить" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Button fx:id="btnAddVal" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btnAddVal_click" prefHeight="27.0" prefWidth="116.0" text="Прибавить" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="180.0" top="-230.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnSubVal" mnemonicParsing="false" prefHeight="27.0" prefWidth="116.0" text="Отнять" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Button fx:id="btnSubVal" mnemonicParsing="false" onMouseClicked="#btnSubVal_click" prefHeight="27.0" prefWidth="116.0" text="Отнять" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="180.0" top="-150.0" />
                </GridPane.margin>
@@ -51,6 +51,7 @@
                </GridPane.margin>
             </TextField>
             <ListView fx:id="lstAcc" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5" />
+            <Button fx:id="btnDelete" mnemonicParsing="false" prefHeight="25.0" prefWidth="300.0" text="Удалить" GridPane.rowIndex="4"  onMouseClicked="#btnDelete_click" />
             </children>
         </GridPane>
     </children>

@@ -23,6 +23,11 @@ public class TType {
         name = _name;
     }
 
+    public TType(String _id, String _name) {
+        id = Integer.parseInt(_id);
+        name = _name;
+    }
+
     public TType(String values[]) {
         try {
 //            if (values.length < 2)

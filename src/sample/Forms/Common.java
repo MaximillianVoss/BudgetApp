@@ -21,14 +21,27 @@ import java.util.List;
  */
 public class Common {
 
+    //<editor-fold desc="Fields">
     private String fileName = "cache.txt";
+    private String pathStr = "/sample/Forms/";
+    public String totalStr = "Итого за";
+    public String incomeStr = "Доходы за";
+    public String outcomeStr = "Расходы за";
+    public String periodsStrs[] = {"день", "месяц", "год"};
+    public String bankAccountTypeStr = "Банковский счет";
+    public String notFilledStr = "Для добавления заполните все поля";
+    /**
+     * id 777 - для банковских счетов
+     */
+    public int bankAccountTypeId = 777;
+    //</editor-fold>
 
     public String GetFileName() {
         return fileName;
     }
 
     public void ShowForm(String name) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/Forms/" + name));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(pathStr + name));
         Parent root = (Parent) loader.load();
         Stage stage = new Stage();
         Scene scene = new Scene(root, 650, 500);
@@ -37,7 +50,7 @@ public class Common {
     }
 
     public void ShowAddTypeForm(String name, int typeId) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/Forms/" + name));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(pathStr + name));
         Parent root = (Parent) loader.load();
         Stage stage = new Stage();
         Scene scene = new Scene(root, 650, 500);
@@ -48,7 +61,7 @@ public class Common {
     }
 
     public void ShowChartForm(String name, ArrayList<Item> items, int type) throws IOException, InterruptedException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/Forms/" + name));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(pathStr + name));
         Parent root = (Parent) loader.load();
         Stage stage = new Stage();
         Scene scene = new Scene(root, 650, 500);

@@ -16,12 +16,12 @@ import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import sample.FileIO.FileIO;
 import sample.Models.Item;
 
-import java.awt.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -34,6 +34,7 @@ import java.util.concurrent.Callable;
  * Created by mark on 05.10.2017.
  */
 public class ChartsController implements Initializable {
+
     //<editor-fold desc="Controls">
     @FXML
     AnchorPane pane;
@@ -43,6 +44,12 @@ public class ChartsController implements Initializable {
     PieChart chartMonth;
     @FXML
     PieChart chartYear;
+    @FXML
+    Label lblResDay;
+    @FXML
+    Label lblResMonth;
+    @FXML
+    Label lblResYear;
     @FXML
     DatePicker datePicker;
     @FXML
@@ -62,8 +69,8 @@ public class ChartsController implements Initializable {
     List<String> colors = new ArrayList<>();
 
     //<editor-fold desc="Fields">
-    private CategoryAxis xAxis = new CategoryAxis();
-    private NumberAxis yAxis = new NumberAxis();
+    private NumberAxis  xAxis = new NumberAxis();
+    private CategoryAxis yAxis = new CategoryAxis();
     private int type = -1;
     private ArrayList<Item> items = new ArrayList<Item>();
     private FileIO io = new FileIO("cache.txt");
@@ -152,6 +159,8 @@ public class ChartsController implements Initializable {
     }
 
     public void SyncCharts(BarChart barChart, PieChart pieChart, int type) {
+        Common com = new Common();
+        //круговая диаграмма
         pieChart.getData().clear();
         barChart.getData().clear();
         String[] styles = new String[]{
@@ -166,19 +175,43 @@ public class ChartsController implements Initializable {
         };
         Map<String, Item> dict = new HashMap<String, Item>();
         int i = 0;
+        int sum = 0;
         for (Item item : items) {
             if (Compare(item, type)) {
-                if (dict.get(item.type.GetName()) == null)
+                if (dict.get(item.type.GetName()) == null) {
                     dict.put(item.type.GetName(), item);
-                else
+                } else {
                     dict.get(item.type.GetName()).value += item.value;
+                }
+                sum += item.value;
             }
         }
+        //итого за:
+        Label lables[] = {lblResDay, lblResMonth, lblResYear};
+        String titles[] = {""};
+        if (type > 0 && type <= lables.length)
+            lables[type - 1].setText(
+                    String.format(
+                            "%s %s: %s",
+                            com.totalStr,
+                            com.periodsStrs[type - 1],
+                            String.valueOf(sum))
+            );
         pieChart.setData(ConvertToChartData(dict));
-        //TODO: сделать подписи в зависимости от формы!!!
-//        bchartDay.setTitle("Доходы");
-//        xAxis.setLabel("Значение");
-//        yAxis.setLabel("категории");
+        //столбчатая диаграмма
+
+
+        //xAxis.setLabel("Значение");
+        //yAxis.setLabel("категории");
+        //barChart = new BarChart<Double,String>(xAxis,yAxis);
+        if (type > 0 && type <= com.periodsStrs.length) {
+            String tempStr = "";
+            if (io.GetTemp().equals("income"))
+                tempStr = com.incomeStr;
+            else
+                tempStr = com.outcomeStr;
+            barChart.setTitle(String.format("%s %s", tempStr, com.periodsStrs[type - 1]));
+        }
         for (i = 0; i < pieChart.getData().size(); i++)
             pieChart.getData().get(i).getNode().setStyle("-fx-pie-color:" + styles[i] + ";");
         barChart.setBarGap(0);
@@ -196,7 +229,7 @@ public class ChartsController implements Initializable {
     /**
      * Заполняет диаграммы
      */
-    public void FillChart()  {
+    public void FillChart() {
         try {
             io.OpenItems();
             if (io.GetTemp().equals("income")) {
